@@ -17,6 +17,7 @@
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <lombok.version>1.18.22</lombok.version>
+        <org.springdoc.version>1.6.9</org.springdoc.version>
     </properties>
     <dependencies>
         <dependency>
@@ -28,13 +29,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -68,6 +69,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${org.springdoc.version}</version>
         </dependency>
     </dependencies>
 

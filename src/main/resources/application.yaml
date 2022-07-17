@@ -3,7 +3,7 @@ server:
 
 logging:
   level:
-    com.hectormaturano.technicaltest: info
+    com.maturanomartin.technicaltest: info
 
 spring:
   datasource:
