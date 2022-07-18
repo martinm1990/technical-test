@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,4 +30,30 @@ public class SuperHeroPersistenceAdapter implements SuperHeroOutputPort {
         return superHeroPersistenceMapper.toListModel(superHeroes);
     }
 
+    @Override
+    public SuperHero save(SuperHero superHero) {
+        SuperHeroEntity superHeroEntity = superHeroPersistenceMapper.toEntity(superHero);
+        superHeroEntity = superHeroRepository.save(superHeroEntity);
+        return superHeroPersistenceMapper.toModel(superHeroEntity);
+    }
+
+    @Override
+    public Optional<SuperHero> getSuperHeroById(Long id) {
+
+        Optional<SuperHeroEntity> superHeroOptional = superHeroRepository.findById(id);
+
+        if (superHeroOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        SuperHero superHero = superHeroPersistenceMapper.toModel(superHeroOptional.get());
+
+        return Optional.of(superHero);
+    }
+
+    @Override
+    public void delete(SuperHero superHero) {
+        SuperHeroEntity superHeroEntity = superHeroPersistenceMapper.toEntity(superHero);
+        superHeroRepository.delete(superHeroEntity);
+    }
 }
