@@ -6,6 +6,9 @@ import com.maturanomartin.technicaltest.infrastructure.adapter.output.persistenc
 import com.maturanomartin.technicaltest.infrastructure.adapter.output.persistence.mapper.SuperHeroPersistenceMapper;
 import com.maturanomartin.technicaltest.infrastructure.adapter.output.persistence.repository.SuperHeroRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +41,7 @@ public class SuperHeroPersistenceAdapter implements SuperHeroOutputPort {
     }
 
     @Override
+    @Cacheable(cacheNames = "superheroes", key="#id")
     public Optional<SuperHero> getSuperHeroById(Long id) {
 
         Optional<SuperHeroEntity> superHeroOptional = superHeroRepository.findById(id);
@@ -52,6 +56,7 @@ public class SuperHeroPersistenceAdapter implements SuperHeroOutputPort {
     }
 
     @Override
+    @CacheEvict(cacheNames = "superheroes", key = "#superHero.id")
     public void delete(SuperHero superHero) {
         SuperHeroEntity superHeroEntity = superHeroPersistenceMapper.toEntity(superHero);
         superHeroRepository.delete(superHeroEntity);

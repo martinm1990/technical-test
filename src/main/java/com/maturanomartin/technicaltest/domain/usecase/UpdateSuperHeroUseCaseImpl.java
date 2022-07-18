@@ -4,6 +4,7 @@ import com.maturanomartin.technicaltest.application.ports.input.superhero.Update
 import com.maturanomartin.technicaltest.application.ports.output.SuperHeroOutputPort;
 import com.maturanomartin.technicaltest.domain.model.SuperHero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class UpdateSuperHeroUseCaseImpl implements UpdateSuperHeroUseCase {
     private final SuperHeroOutputPort superHeroOutputPort;
 
     @Override
+    @CachePut(cacheNames = "superheroes", key = "#superHero.id")
     public SuperHero apply(SuperHero superHero) {
         superHero = superHeroOutputPort.save(superHero);
         return superHero;
