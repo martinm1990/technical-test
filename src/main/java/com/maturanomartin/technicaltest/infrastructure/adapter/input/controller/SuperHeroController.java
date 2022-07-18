@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.maturanomartin.technicaltest.infrastructure.util.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,6 +34,7 @@ public class SuperHeroController {
     @GetMapping()
     @Operation(summary = "Get all superheroes", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Found Superheros")})
+    @ExecutionTime
     public ResponseEntity<List<SuperHeroResponseDto>> getAllSuperHeroHandler(@RequestParam(required = false) String name) {
         var superHeroes = Objects.isNull(name)
                 ? getAllSuperHeroUseCase.getAll()
@@ -42,6 +44,7 @@ public class SuperHeroController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get Superhero By id")
+    @ExecutionTime
     public ResponseEntity<SuperHeroResponseDto> getSuperHeroByIdHandler(@PathVariable Long id){
         SuperHero superHero = getSuperHeroByIdUseCase.apply(id);
         return new ResponseEntity<>(superHeroRestMapper.toResponseDto(superHero), HttpStatus.OK);
@@ -49,6 +52,7 @@ public class SuperHeroController {
 
     @PostMapping("")
     @Operation(summary = "Create a Superhero")
+    @ExecutionTime
     public ResponseEntity<SuperHeroResponseDto> createSuperHeroHandler(
             @RequestBody @Valid SuperHeroRequestDto superHeroRequestDto){
         SuperHero superHero = superHeroRestMapper.toModel(superHeroRequestDto);
@@ -59,6 +63,7 @@ public class SuperHeroController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a Superhero")
+    @ExecutionTime
     public ResponseEntity<SuperHeroResponseDto> updateSuperHeroHandler(
             @PathVariable Long id,
             @RequestBody @Valid SuperHeroRequestDto superHeroRequestDto) {
@@ -70,6 +75,7 @@ public class SuperHeroController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a Superhero")
+    @ExecutionTime
     public void deleteSuperHeroHandler(
             @PathVariable Long id){
         deleteSuperHeroUseCase.apply(id);
