@@ -59,7 +59,7 @@ class GetAllSuperHeroUseCaseImplTest {
 
         List<SuperHero> superHeroes = List.of(
                 SuperHero.builder().id(1L).name("Superman").age(100).skill("Super Strength").build(),
-                SuperHero.builder().id(1L).name("Spiderman").age(17).skill("Super Strength").build()
+                SuperHero.builder().id(2L).name("Spiderman").age(17).skill("Super Strength").build()
         );
 
         if (Objects.nonNull(name)){
